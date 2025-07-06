@@ -7,26 +7,23 @@ RUN npm install
 # Build the app
 FROM node:20-alpine AS builder
 WORKDIR /app
+COPY package.json package-lock.json* ./
+RUN npm install
 COPY . .
-COPY --from=deps /app/node_modules ./node_modules
 RUN npm run build
 
 # Production image
-FROM node:20-alpine AS runner
+FROM nginx:alpine AS runner
 WORKDIR /app
 
-ENV NODE_ENV production
+# Copy built assets from builder
+COPY --from=builder /app/dist /usr/share/nginx/html
 
-# Set a non-root user (optional)
-# RUN addgroup -g 1001 -S nodejs && adduser -S nextjs -u 1001
-# USER nextjs
+# Optionally, copy a static metrics file
+# COPY metrics /usr/share/nginx/html/metrics
 
-COPY --from=builder /app/public ./public
-COPY --from=builder /app/.next ./.next
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/package.json ./package.json
+COPY nginx.conf /etc/nginx/nginx.conf
 
 EXPOSE 3000
 
-# Use default Next.js start command
-CMD ["npx", "next", "start"]
+CMD ["nginx", "-g", "daemon off;"]
