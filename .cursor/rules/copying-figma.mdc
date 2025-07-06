@@ -1,0 +1,8 @@
+---
+description: if you got link from figma then use this rule
+globs: 
+alwaysApply: false
+---
+Copying from figma ensure that all the variables matches what you get from figma
+E.g. if button height is 30px then use h-[30px], not h-8 or something similar
+Also when using figma prioritize "tailwindcss-rule"

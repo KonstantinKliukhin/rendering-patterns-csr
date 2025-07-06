@@ -1,0 +1,19 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+Always use latest tailwind documentation
+
+Before adding some styling check the src/index.css file, the you should find available variables
+Pay attention that in the latest tailwindcss documentation use can specify variables like
+`
+@theme {
+  --font-poppins: Poppins, sans-serif;
+}
+`
+and then use it like className="font-poppins"
+All other similar variables you can find in latest tailwindcss doc
+always use them if any available and only in case not then use custom inline
+
+if you see something like bg-[var(--color-purple-gem)] or bg-[--color-purple-gem] rewrite it to be bg-purle-gem, it should be used always from config first
