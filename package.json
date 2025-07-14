@@ -11,6 +11,7 @@
     "format": "prettier --write ."
   },
   "dependencies": {
+    "@faker-js/faker": "^9.9.0",
     "@tailwindcss/vite": "^4.1.8",
     "@techstark/opencv-js": "^4.10.0-release.1",
     "class-variance-authority": "^0.7.1",
